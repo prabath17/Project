@@ -1,0 +1,91 @@
+#!/bin/bash
+
+accounts_file="accounts.txt"
+
+create_account() {
+  echo "Enter Account Number:"
+  read acc
+  grep -q "^$acc|" $accounts_file && { echo "Account already exists."; return; }
+
+  echo "Enter Name:"
+  read name
+  echo "Enter Initial Balance:"
+  read balance
+  echo "$acc|$name|$balance" >> $accounts_file
+  echo "✅ Account created successfully."
+}
+
+view_account() {
+  echo "Enter Account Number:"
+  read acc
+  grep "^$acc|" $accounts_file || echo "❌ Account not found."
+}
+
+deposit_money() {
+  echo "Enter Account Number:"
+  read acc
+  line=$(grep "^$acc|" $accounts_file)
+  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+
+  echo "Enter Amount to Deposit:"
+  read amount
+  name=$(echo $line | cut -d'|' -f2)
+  balance=$(echo $line | cut -d'|' -f3)
+  new_balance=$((balance + amount))
+  sed -i "/^$acc|/d" $accounts_file
+  echo "$acc|$name|$new_balance" >> $accounts_file
+  echo "💰 Deposited. New Balance: $new_balance"
+}
+
+withdraw_money() {
+  echo "Enter Account Number:"
+  read acc
+  line=$(grep "^$acc|" $accounts_file)
+  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+
+  echo "Enter Amount to Withdraw:"
+  read amount
+  name=$(echo $line | cut -d'|' -f2)
+  balance=$(echo $line | cut -d'|' -f3)
+  if (( amount > balance )); then
+    echo "❌ Insufficient funds."
+    return
+  fi
+  new_balance=$((balance - amount))
+  sed -i "/^$acc|/d" $accounts_file
+  echo "$acc|$name|$new_balance" >> $accounts_file
+  echo "💸 Withdrawn. New Balance: $new_balance"
+}
+
+check_balance() {
+  echo "Enter Account Number:"
+  read acc
+  line=$(grep "^$acc|" $accounts_file)
+  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+  name=$(echo $line | cut -d'|' -f2)
+  balance=$(echo $line | cut -d'|' -f3)
+  echo "👤 Name: $name | 💰 Balance: $balance"
+}
+
+# Main Loop
+while true; do
+  echo ""
+  echo "====== Mini Banking System ======"
+  echo "1. Create Account"
+  echo "2. View Account"
+  echo "3. Deposit"
+  echo "4. Withdraw"
+  echo "5. Check Balance"
+  echo "6. Exit"
+  read -p "Select option: " choice
+
+  case $choice in
+    1) create_account ;;
+    2) view_account ;;
+    3) deposit_money ;;
+    4) withdraw_money ;;
+    5) check_balance ;;
+    6) echo "Goodbye!"; break ;;
+    *) echo "Invalid choice" ;;
+  esac
+done
