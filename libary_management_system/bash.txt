@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Step 1: Ask user for operation
+echo "Select Operation:"
+echo "1. Book Buy (Issue)"
+echo "2. Book Return"
+read op_choice
+
+if [[ "$op_choice" != "1" && "$op_choice" != "2" ]]; then
+  echo "Invalid operation selected."
+  exit 1
+fi
+
+# Step 2: Select department
+echo "Select Department:"
+echo "1. CSE"
+echo "2. ECE"
+echo "3. MECH"
+echo "4. AIDS"
+echo "5. IT"
+echo "6. CIVIL"
+echo "7. AIML"
+echo "8. BIOTECH"
+echo "9. CHEMICAL"
+read dept_choice
+
+case $dept_choice in
+  1) dept="CSE";;
+  2) dept="ECE";;
+  3) dept="MECH";;
+  4) dept="AIDS";;
+  5) dept="IT";;
+  6) dept="CIVIL";;
+  7) dept="AIML";;
+  8) dept="BIOTECH";;
+  9) dept="CHEMICAL";;
+  *) echo "Invalid department."; exit 1;;
+esac
+
+# Step 3: Define functions
+buy_book() {
+  echo "Enter Student Name:"
+  read name
+  echo "Enter College ID:"
+  read id
+  echo "Enter Book Name:"
+  read book
+  echo "Enter Author Name:"
+  read author
+  echo "$id|$name|$book|$author" >> "${dept}_issued.txt"
+  echo "✅ Book issued successfully."
+}
+
+return_book() {
+  echo "Enter College ID:"
+  read id
+  echo "Enter Book Name:"
+  read book
+
+  temp_file=$(mktemp)
+  found=0
+
+  while IFS='|' read -r cid name bname author; do
+    if [[ "$cid" == "$id" && "$bname" == "$book" ]]; then
+      found=1
+      continue
+    fi
+    echo "$cid|$name|$bname|$author" >> "$temp_file"
+  done < "${dept}_issued.txt"
+
+  mv "$temp_file" "${dept}_issued.txt"
+
+  if [[ $found -eq 1 ]]; then
+    echo "✅ Book returned successfully."
+  else
+    echo "❌ No matching record found."
+  fi
+}
+
+# Step 4: Call selected function
+if [[ "$op_choice" == "1" ]]; then
+  buy_book
+else
+  return_book
+fi
