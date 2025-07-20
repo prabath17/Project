@@ -12,20 +12,20 @@ create_account() {
   echo "Enter Initial Balance:"
   read balance
   echo "$acc|$name|$balance" >> $accounts_file
-  echo "✅ Account created successfully."
+  echo " Account created successfully."
 }
 
 view_account() {
   echo "Enter Account Number:"
   read acc
-  grep "^$acc|" $accounts_file || echo "❌ Account not found."
+  grep "^$acc|" $accounts_file || echo " Account not found."
 }
 
 deposit_money() {
   echo "Enter Account Number:"
   read acc
   line=$(grep "^$acc|" $accounts_file)
-  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+  [[ -z "$line" ]] && { echo " Account not found."; return; }
 
   echo "Enter Amount to Deposit:"
   read amount
@@ -34,37 +34,37 @@ deposit_money() {
   new_balance=$((balance + amount))
   sed -i "/^$acc|/d" $accounts_file
   echo "$acc|$name|$new_balance" >> $accounts_file
-  echo "💰 Deposited. New Balance: $new_balance"
+  echo " Deposited. New Balance: $new_balance"
 }
 
 withdraw_money() {
   echo "Enter Account Number:"
   read acc
   line=$(grep "^$acc|" $accounts_file)
-  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+  [[ -z "$line" ]] && { echo " Account not found."; return; }
 
   echo "Enter Amount to Withdraw:"
   read amount
   name=$(echo $line | cut -d'|' -f2)
   balance=$(echo $line | cut -d'|' -f3)
   if (( amount > balance )); then
-    echo "❌ Insufficient funds."
+    echo " Insufficient funds."
     return
   fi
   new_balance=$((balance - amount))
   sed -i "/^$acc|/d" $accounts_file
   echo "$acc|$name|$new_balance" >> $accounts_file
-  echo "💸 Withdrawn. New Balance: $new_balance"
+  echo " Withdrawn. New Balance: $new_balance"
 }
 
 check_balance() {
   echo "Enter Account Number:"
   read acc
   line=$(grep "^$acc|" $accounts_file)
-  [[ -z "$line" ]] && { echo "❌ Account not found."; return; }
+  [[ -z "$line" ]] && { echo " Account not found."; return; }
   name=$(echo $line | cut -d'|' -f2)
   balance=$(echo $line | cut -d'|' -f3)
-  echo "👤 Name: $name | 💰 Balance: $balance"
+  echo " Name: $name |  Balance: $balance"
 }
 
 # Main Loop
