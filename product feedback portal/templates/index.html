@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Feedback Survey</title>
+</head>
+<body>
+    <h2>Product Feedback Survey</h2>
+    <form action="/submit" method="POST">
+        Name: <input type="text" name="name" required><br><br>
+        Product: <input type="text" name="product" required><br><br>
+        Rating (1-5): <input type="number" name="rating" min="1" max="5" required><br><br>
+        Comment: <br>
+        <textarea name="comment" rows="4" cols="40" required></textarea><br><br>
+        <input type="submit" value="Submit Feedback">
+    </form>
+</body>
+</html>
