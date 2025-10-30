@@ -8,7 +8,7 @@ app.secret_key = 'your_secret_key_here'
 
 # Replace with your actual Supabase project credentials
 SUPABASE_URL = "https://lvgvmiybckdkyusfpabk.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2Z3ZtaXliY2tka3l1c2ZwYWJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3MDM5NjQsImV4cCI6MjA2MjI3OTk2NH0.aN5H5cP2ketyWO5WA74X8lf49OdbC_RtBZ_qfOT7GW0"
+SUPABASE_KEY = ""
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
@@ -154,3 +154,4 @@ def delete_member(member_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
