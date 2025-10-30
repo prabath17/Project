@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #2c3e50;
+      height: 100vh;
+      padding: 20px;
+      color: white;
+    }
+
+    .sidebar h2 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin: 12px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+      background-color: #34495e;
+      color: #fff;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background-color: #fff;
+      padding: 20px;
+      width: 30%;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      background: white;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn-edit {
+      background-color: #27ae60;
+    }
+
+    .btn-delete {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/add-member">Add Member</a>
+    <a href="#">Trainer</a>
+    <a href="#">Attendance</a>
+    <a href="#">Diet</a>
+    <a href="#">Workout</a>
+    <a href="/admin/logout">Logout</a>
+  </div>
+
+  <div class="main-content">
+    <h2>Dashboard</h2>
+
+    <!-- Member Stats -->
+    <div class="stats-container">
+      <div class="stat-box">Total Members: {{ total_members }}</div>
+      <div class="stat-box">Active Members: {{ active_members }}</div>
+      <div class="stat-box">Expired Members: {{ expired_members }}</div>
+    </div>
+
+    <!-- Member Table -->
+    <h2>Member List</h2>
+    <table class="member-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Phone</th>
+          <th>Plan</th>
+          <th>Diet</th>
+          <th>Workout</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Actions</th> <!-- Added missing column -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in members %}
+        <tr>
+          <td>{{ member.name }}</td>
+          <td>{{ member.age }}</td>
+          <td>{{ member.contact }}</td>
+          <td>{{ member.membership_plan }}</td>
+          <td>{{ member.diet_plan }}</td>
+          <td>{{ member.workout_plan }}</td>
+          <td>{{ member.subscription_start }}</td>
+          <td>{{ member.subscription_end }}</td>
+          <td>
+            <a href="/admin/edit-member/{{ member.id }}" class="btn btn-edit">Edit</a>
+            <a href="/admin/delete-member/{{ member.id }}" class="btn btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

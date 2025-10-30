@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Member</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7f7f7;
+            padding: 40px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        a.back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Member</h2>
+        <form method="POST" action="/admin/add-member">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Age:</label>
+            <input type="number" name="age" required>
+
+            <label>Phone Number:</label>
+            <input type="text" name="contact" required>
+
+            <label>Membership Plan:</label>
+            <input type="text" name="membership_plan" required>
+
+            <label>Diet Plan:</label>
+            <input type="text" name="diet_plan" required>
+
+            <label>Workout Plan:</label>
+            <input type="text" name="workout_plan" required>
+
+            <label>Subscription Start:</label>
+            <input type="date" name="subscription_start" required>
+
+            <label>Subscription End:</label>
+            <input type="date" name="subscription_end" required>
+
+            <button type="submit">Add Member</button>
+        </form>
+        <a class="back" href="/admin/dashboard">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

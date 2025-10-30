@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Member</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Edit Member</h2>
+    <form method="POST">
+      <label>Name:</label>
+      <input type="text" name="name" value="{{ member.name }}">
+
+      <label>Age:</label>
+      <input type="number" name="age" value="{{ member.age }}">
+
+      <label>Contact:</label>
+      <input type="text" name="contact" value="{{ member.contact }}">
+
+      <label>Membership Plan:</label>
+      <input type="text" name="membership_plan" value="{{ member.membership_plan }}">
+
+      <label>Diet Plan:</label>
+      <input type="text" name="diet_plan" value="{{ member.diet_plan }}">
+
+      <label>Workout Plan:</label>
+      <input type="text" name="workout_plan" value="{{ member.workout_plan }}">
+
+      <label>Subscription Start:</label>
+      <input type="date" name="subscription_start" value="{{ member.subscription_start }}">
+
+      <label>Subscription End:</label>
+      <input type="date" name="subscription_end" value="{{ member.subscription_end }}">
+
+      <input type="submit" value="Update">
+    </form>
+  </div>
+</body>
+</html>
