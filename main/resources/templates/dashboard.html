@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation Result</title>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 80px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+        .card {
+            display: inline-block;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .valid {
+            color: green;
+            font-weight: bold;
+        }
+        .invalid {
+            color: red;
+            font-weight: bold;
+        }
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2>Validation Result</h2>
+
+    <p><b>Name:</b> <span th:text="${name}"></span></p>
+    <p><b>Age:</b> <span th:text="${age}"></span></p>
+    <p><b>Bottles:</b> <span th:text="${bottles}"></span></p>
+
+    <hr>
+
+    <p>
+        Age Status:
+        <span th:class="${ageValid} ? 'valid' : 'invalid'"
+              th:text="${ageValid} ? 'VALID (18+)' : 'NOT VALID (<18)'">
+        </span>
+    </p>
+
+    <p>
+        Bottle Status:
+        <span th:class="${bottleValid} ? 'valid' : 'invalid'"
+              th:text="${bottleValid} ? 'VALID (≤5)' : 'NOT VALID (>5)'">
+        </span>
+    </p>
+
+    <hr>
+
+    <p th:if="${ageValid and bottleValid}" class="valid">
+        ✅ FINAL RESULT: VALID
+    </p>
+
+    <p th:if="${!(ageValid and bottleValid)}" class="invalid">
+        ❌ FINAL RESULT: NOT VALID
+    </p>
+
+    <br>
+    <a href="/validation">Validate Another Aadhaar</a>
+
+</div>
+
+</body>
+</html>

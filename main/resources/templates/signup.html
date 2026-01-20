@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Signup</title>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 120px;
+            font-family: Arial, sans-serif;
+        }
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 30px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Admin – Create User Credentials</h2>
+
+<form th:action="@{/signup}" th:object="${user}" method="post">
+
+    <label>User Email</label><br>
+    <input type="email" th:field="*{email}" required><br><br>
+
+    <label>User Password</label><br>
+    <input type="password" th:field="*{password}" required><br><br>
+
+    <button type="submit">Create User</button>
+
+</form>
+
+</body>
+</html>
